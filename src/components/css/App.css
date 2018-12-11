@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+  margin: 1em;
+}
+
+.class-details{
+  font-size: 0.75em;
+  color: gray;
+}
+
+.class-header{
+  margin-left: 10px;
+  font-size: 1em;
+  color: black;
+}
+
+.class-avaliable{
+  margin-left: 10px;
+  font-size: 1em;
+  color: green;
+}

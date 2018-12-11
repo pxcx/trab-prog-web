@@ -41,7 +41,7 @@ class AppMenu extends Component {
 	render() {
 		const { activeItem } = this.state
 
-		const menuList = this.props.datasource.map((sala) => (
+		const menuList = this.props.salas.map((sala) => (
 				(this.props.adm) ? (
 					<Popup key={sala.id} hoverable={true} trigger={
 						<Menu.Item key={sala.id} name={sala.sala} active={activeItem === sala.sala} onClick={this.handleItemClick}>
@@ -56,6 +56,23 @@ class AppMenu extends Component {
 					</Menu.Item>
 				)
 		))
+
+		const AdminButton = () => {
+			if(this.props.adm){
+				return (
+					<Menu.Item key={101} name='logout' onClick={this.handleItemClick}>
+						<Icon name={'sign-out'} /> Sair
+					</Menu.Item>
+				)
+			}
+			else{
+				return (
+					<Menu.Item key={101} name='gerenciar' active={this.props.adm} onClick={this.handleItemClick}>
+						<Icon name={'settings'} /> Configurações
+					</Menu.Item>
+				)
+			}
+		}
 		
 		return (
 			<div>
@@ -70,10 +87,7 @@ class AppMenu extends Component {
 					) : null }
  				</Menu>
 				<Menu icon='labeled' vertical>
-					<Menu.Item key={101} name='gerenciar' active={this.props.adm} onClick={this.handleItemClick}>
-						<Icon name={'settings'} /> Configurações
-
-					</Menu.Item>
+					<AdminButton/>
 				</Menu>
 			</div>
 
@@ -92,4 +106,10 @@ function mapDispatchToProps(dispatch){
 	}
 }
 
-export default connect(null, mapDispatchToProps)(AppMenu);
+function mapStateToProps(state) {
+	return {
+		salas: state.salas
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppMenu);

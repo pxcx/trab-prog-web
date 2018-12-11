@@ -6,6 +6,7 @@ from flask_pymongo import PyMongo, ObjectId
 # app modules
 from app.aula import Aula
 from app.sala import Sala
+from app.user import User
 
 app = Flask(__name__)
 CORS(app)
@@ -81,6 +82,47 @@ def add_sala():
 	try:
 		salas = Sala(mongo)
 		return salas.add(), 200
+	except Exception as e:
+		return send_error(e), 500
+
+# ROTAS USUARIO
+@app.route('/user', methods=['GET'])
+def call_get_all_users():
+	try:
+		api = User(mongo)
+		return api.get_all(), 200
+	except Exception as e:
+		return send_error(e), 500
+
+@app.route('/user/<id>', methods=['GET'])
+def call_get_user_by_id(id):
+	try:
+		api = User(mongo)
+		return api.get_by_id(id), 200
+	except Exception as e:
+		return send_error(e), 500
+
+@app.route('/user/<id>', methods=['DELETE'])
+def call_delete_user(id):
+	try:
+		api = User(mongo)
+		return api.delete(), 200
+	except Exception as e:
+		return send_error(e), 500
+
+@app.route('/login', methods=['POST'])
+def call_login_user():
+	try:
+		api = User(mongo)
+		return api.login(), 200
+	except Exception as e:
+		return send_error(e), 500
+
+@app.route('/user', methods=['POST'])
+def call_add_user():
+	try:
+		api = User(mongo)
+		return api.add()
 	except Exception as e:
 		return send_error(e), 500
 

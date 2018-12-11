@@ -81,7 +81,7 @@ class AppGrid extends Component {
 					}
 					else{
 						// eslint-disable-next-line
-						const aulas = _.filter(this.props.datasource, (aula) => { return aula.dia === j })
+						const aulas = _.filter(this.props.aulas, (aula) => { return aula.dia === j })
 						// eslint-disable-next-line
 						const aula = _.find(aulas, function(aux) { return aux.inicio === i })
 						if(aula) {
@@ -124,9 +124,6 @@ class AppGrid extends Component {
 				i++
 			}
 		}
-		else{
-			
-		}
 
 		const {dia, inicio, sala} = this.state.add
 		
@@ -161,4 +158,11 @@ function mapDispatchToProps(dispatch){
 	}
 }
 
-export default connect(null, mapDispatchToProps)(AppGrid);
+function mapStateToProps(state) {
+	return {
+		aulas: state.aulas,
+		salas: state.salas
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppGrid);
